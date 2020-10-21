@@ -1,5 +1,6 @@
 syntax on
 set belloff=all
+set clipboard=unnamedplus
 set relativenumber
 set nohlsearch
 set hidden
@@ -35,6 +36,7 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'w0rp/ale', { 'do': 'pip install flake8 isort yapf' }
 Plug 'preservim/nerdtree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tweekmonster/gofmt.vim'
@@ -48,8 +50,12 @@ Plug 'gruvbox-community/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jmcantrell/vim-virtualenv'
+Plug 'tpope/vim-dadbod'
 
 call plug#end()
+
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {'python': ['isort', 'yapf', 'remove_trailing_lines', 'trim_whitespace']}
 
 let g:gruvbox_contrast_dark = 'hard'
 if exists('+termguicolors')
@@ -90,6 +96,10 @@ endif
 let loaded_matchparen = 1
 let mapleader = " "
 
+" mapping for buffers
+map <leader>] :bn<cr>
+map <leader>[ :bp<cr>
+
 let g:netrw_browse_split = 2
 let g:netrw_banner = 0
 let g:netrw_winsize = 25
@@ -113,6 +123,8 @@ inoremap <C-c> <esc>
 
 inoremap <silent><expr> <C-space> coc#refresh()
 
+" fzf maps
+nnoremap <Leader>pf :Files<CR>
 " GoTo code navigation.
 nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gy <Plug>(coc-type-definition)
@@ -126,5 +138,8 @@ nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
 nnoremap <leader>cr :CocRestart
 
 
-
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+nnoremap <C-p> "+gP
+vnoremap <C-p> "+gP
 
