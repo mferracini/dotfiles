@@ -1,20 +1,24 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Devel
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-source ~/.local/bin/virtualenvwrapper.sh
+alias brow='arch --x86_64 /usr/local/Homebrew/bin/brew'
+alias intel='arch --x86_64 zsh'
+alias arm='arch --arm64 zsh'
+#CFLAGS="-I$(brew86 --prefix openssl)/include" \
+#LDFLAGS="-L$(brew86 --prefix openssl)/lib" \
+#pyenv conf 
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
+echo 'eval "$(pyenv init -)"' >> ~/.zshrc
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/M147239/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="risto"
+ZSH_THEME="agnoster"
 unsetopt BEEP
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -74,7 +78,7 @@ unsetopt BEEP
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting k)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -103,3 +107,57 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Added by furycli:
+export PATH="$HOME/Library/Python/3.8/bin:$PATH"
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+if [[ $(arch) != arm64* ]]
+then
+	eval "$(/usr/local/bin/brew shellenv)"
+    alias brew86='arch -x86_64 /usr/local/bin/brew'
+    alias pyenv86="arch -x86_64 pyenv"
+	export PYENV_ROOT="$HOME/.pyenv-x86"
+    CFLAGS="-I$(brew86 --prefix openssl)/include" \
+    LDFLAGS="-L$(brew86 --prefix openssl)/lib" \
+else
+	eval "$(/opt/homebrew/bin/brew shellenv)"
+	# default PYENV_ROOT => $HOME/.pyenv
+fi
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/mferracini/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/mferracini/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "/Users/mferracini/miniforge3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/mferracini/miniforge3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
