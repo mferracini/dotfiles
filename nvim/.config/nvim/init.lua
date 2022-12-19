@@ -10,7 +10,7 @@ require "user.core.colorscheme"
 require "user.plugins.statusline"
 require "user.plugins.nvim-tree"
 require "user.plugins.nvim-cmp"
-
+require "user.plugins.telescope"
 
 -- LSP related
---
+require "user.lsp"

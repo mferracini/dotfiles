@@ -89,9 +89,11 @@ return packer.startup(function(use)
   
 
   -- LSP related, linters & formatters
-  
-
-
+  use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP  
+  use { "williamboman/mason.nvim" }
+  use { "williamboman/mason-lspconfig.nvim"}
+  use { "jose-elias-alvarez/null-ls.nvim" } -- for formatters and linters
+  use { "RRethy/vim-illuminate" }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
