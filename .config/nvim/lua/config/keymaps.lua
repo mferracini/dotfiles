@@ -7,7 +7,7 @@ local keymap = vim.api.nvim_set_keymap
 --Remap space as leader key
 keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+vim.g.maplocalleader = ","
 
 -- Modes
 --   normal_mode = "n",
@@ -57,15 +57,4 @@ keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
-
---- Plugins keymaps ---
--- Nvim-tree
-keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
-
--- telescope (fuzzyfinde)--
-keymap('n', '<leader>ff', ":Telescope find_files<CR>", opts)
-keymap('n', '<leader>fs', ":Telescope live_grep<CR>", opts) 
-keymap('n', '<leader>fc', ":Telescope find_current<CR>", opts) 
-keymap('n', '<leader>fb', ":Telescope buffers<CR>", opts) 
-keymap('n', '<leader>fh', ":Telescope help_tags<CR>", opts) 
 

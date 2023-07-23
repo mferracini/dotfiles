@@ -155,3 +155,8 @@ if [ -f '/Users/mferracini/google-cloud-sdk/completion.zsh.inc' ]; then . '/User
 
 # SMLNJ language
 export PATH=/usr/local/smlnj/bin:"$PATH"
+
+# starship init
+ eval "$(starship init zsh)"
+# Added by furycli:
+export PATH="$HOME/.fury/fury_venv/bin:$PATH"
