@@ -1,20 +1,7 @@
-return {
-
-  -- tokyonight
-  {
-    "folke/tokyonight.nvim",
-    lazy = true,
-    opts = { style = "moon" },
-  },
-
-  -- catppuccin
-  {
-    "catppuccin/nvim",
-    lazy = true,
-    name = "catppuccin",
-    opts = {
+local catppuccin_opts = {
       integrations = {
         alpha = true,
+        nvimtree = true,
         cmp = true,
         gitsigns = true,
         illuminate = true,
@@ -41,7 +28,7 @@ return {
         treesitter = true,
         which_key = true,
       },
-    },
-  },
-}
+  }
+require("catppuccin").setup(catppuccin_opts)
+require("tokyonight").setup({ style = "moon" })
 

@@ -7,17 +7,66 @@ end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 
-require("lazy").setup({
-  spec = {
-    -- add LazyVim and import its plugins
-    -- { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    -- import any extras modules here
-    -- { import = "lazyvim.plugins.extras.lang.typescript" },
-    -- { import = "lazyvim.plugins.extras.lang.json" },
-    -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
-    -- import/override with your plugins
-    { import = "plugins" },
+require("lazy").setup(
+  {
+  spec ={
+  {
+    "nvim-tree/nvim-tree.lua",
+    version = "*",
+    lazy = false,
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    keys = {
+      { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "NeoTree" }
+    },
+  config = function()
+      require("nvim-tree").setup {
+        view = {
+          width = 30,
+        },
+        renderer = {
+          group_empty = true,
+        },
+        filters = {
+          dotfiles = false,
+        },
+      }
+    end,
   },
+      {
+        -- LSP Configuration 
+        'neovim/nvim-lspconfig',
+        dependencies = {
+          -- Automatically install LSPs to stdpath for neovim
+          { 'williamboman/mason.nvim', config = true },
+          'williamboman/mason-lspconfig.nvim',
+
+          -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
+          { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+
+          -- Additional lua configuration, makes nvim stuff amazing!
+          'folke/neodev.nvim',
+        }
+    },
+  {
+    -- Autocompletion
+    'hrsh7th/nvim-cmp',
+    dependencies = {
+      -- Snippet Engine & its associated nvim-cmp source
+      'L3MON4D3/LuaSnip',
+      'saadparwaiz1/cmp_luasnip',
+
+      -- Adds LSP completion capabilities
+      'hrsh7th/cmp-nvim-lsp',
+
+      -- Adds a number of user-friendly snippets
+      'rafamadriz/friendly-snippets',
+    },
+  },
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  {"folke/tokyonight.nvim",lazy = false},
+},
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
     -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
@@ -44,4 +93,5 @@ require("lazy").setup({
       },
     },
   },
-})
+  }
+)
