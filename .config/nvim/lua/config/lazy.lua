@@ -1,54 +1,65 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+-- Install package manager
+--    https://github.com/folke/lazy.nvim
+--    `:help lazy.nvim.txt` for more info
+local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
-  -- bootstrap lazy.nvim
-  -- stylua: ignore
-  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath })
+  vim.fn.system {
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable', -- latest stable release
+    lazypath,
+  }
 end
-vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
+vim.opt.rtp:prepend(lazypath)
 
+require('lazy').setup({
+  -- Neogen for documenting
+{ 
+    "danymat/neogen", 
+    dependencies = "nvim-treesitter/nvim-treesitter", 
+    config = true,
+     version = "*",
+},
 
-require("lazy").setup(
-  {
-  spec ={
-  {
-    "nvim-tree/nvim-tree.lua",
-    version = "*",
-    lazy = false,
+{
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
     dependencies = {
-      "nvim-tree/nvim-web-devicons",
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
     },
     keys = {
-      { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "NeoTree" }
+      { "<leader>e", "<cmd>Neotree toggle<cr>", desc = "NeoTree" },
     },
-  config = function()
-      require("nvim-tree").setup {
-        view = {
-          width = 30,
-        },
-        renderer = {
-          group_empty = true,
-        },
-        filters = {
-          dotfiles = false,
-        },
-      }
-    end,
+ },
+  -- Git related plugins
+  'tpope/vim-fugitive',
+  'tpope/vim-rhubarb',
+
+  -- Detect tabstop and shiftwidth automatically
+  'tpope/vim-sleuth',
+
+  
+  
+    -- LSP Configuration & Plugins
+  {
+    'neovim/nvim-lspconfig',
+    dependencies = {
+      -- Automatically install LSPs to stdpath for neovim
+      { 'williamboman/mason.nvim', config = true },
+      'williamboman/mason-lspconfig.nvim',
+
+      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+
+      -- Additional lua configuration, makes nvim stuff amazing!
+      'folke/neodev.nvim',
+    },
   },
-      {
-        -- LSP Configuration 
-        'neovim/nvim-lspconfig',
-        dependencies = {
-          -- Automatically install LSPs to stdpath for neovim
-          { 'williamboman/mason.nvim', config = true },
-          'williamboman/mason-lspconfig.nvim',
-
-          -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-          { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
-
-          -- Additional lua configuration, makes nvim stuff amazing!
-          'folke/neodev.nvim',
-        }
-    },
+  -- formatters and linters
+  {'jose-elias-alvarez/null-ls.nvim',},
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -64,34 +75,100 @@ require("lazy").setup(
       'rafamadriz/friendly-snippets',
     },
   },
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-  {"folke/tokyonight.nvim",lazy = false},
-},
-  defaults = {
-    -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
-    -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
-    lazy = false,
-    -- It's recommended to leave version=false for now, since a lot the plugin that support versioning,
-    -- have outdated releases, which may break your Neovim install.
-    version = false, -- always use the latest git commit
-    -- version = "*", -- try installing the latest stable version for plugins that support semver
+
+  -- Useful plugin to show you pending keybinds.
+  { 'folke/which-key.nvim', opts = {} },
+
+  {
+    -- Adds git releated signs to the gutter, as well as utilities for managing changes
+    'lewis6991/gitsigns.nvim',
+    opts = {
+      -- See `:help gitsigns.txt`
+      signs = {
+        add = { text = '+' },
+        change = { text = '~' },
+        delete = { text = '_' },
+        topdelete = { text = '‾' },
+        changedelete = { text = '~' },
+      },
+      on_attach = function(bufnr)
+        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
+        vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
+        vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
+      end,
+    },
   },
-  install = { colorscheme = { "tokyonight", "gruvbox" } },
-  checker = { enabled = true }, -- automatically check for plugin updates
-  performance = {
-    rtp = {
-      -- disable some rtp plugins
-      disabled_plugins = {
-        "gzip",
-        -- "matchit",
-        -- "matchparen",
-        -- "netrwPlugin",
-        "tarPlugin",
-        "tohtml",
-        "tutor",
-        "zipPlugin",
+
+  -- colorschemes -----
+  {
+    -- Theme inspired by Atom
+    'navarasu/onedark.nvim',
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme 'onedark'
+    end,
+  },
+ { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+------------
+  --statusline and bufferlines
+  {
+    -- Set lualine as statusline
+    'nvim-lualine/lualine.nvim',
+    -- See `:help lualine.txt`
+    opts = {
+      options = {
+        icons_enabled = false,
+        theme = 'onedark',
+        component_separators = '|',
+        section_separators = '',
       },
     },
   },
-  }
-)
+
+  {
+    -- Add indentation guides even on blank lines
+    'lukas-reineke/indent-blankline.nvim',
+    -- Enable `lukas-reineke/indent-blankline.nvim`
+    -- See `:help indent_blankline.txt`
+    opts = {
+      char = '┊',
+      show_trailing_blankline_indent = false,
+    },
+  },
+
+  -- "gc" to comment visual regions/lines
+  { 'numToStr/Comment.nvim', opts = {} },
+
+  -- Fuzzy Finder (files, lsp, etc)
+  { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
+
+  -- Fuzzy Finder Algorithm which requires local dependencies to be built.
+  -- Only load if `make` is available. Make sure you have the system
+  -- requirements installed.
+  {
+    'nvim-telescope/telescope-fzf-native.nvim',
+    -- NOTE: If you are having trouble with this installation,
+    --       refer to the README for telescope-fzf-native for more instructions.
+    build = 'make',
+    cond = function()
+      return vim.fn.executable 'make' == 1
+    end,
+  },
+
+  {
+    -- Highlight, edit, and navigate code
+    'nvim-treesitter/nvim-treesitter',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+    },
+    build = ':TSUpdate',
+  },
+
+  -- { import = 'plugins' },
+}, {})
+
+
+
+
+-- The line beneath this is called `modeline`. See `:help modeline`
+-- vim: ts=2 sts=2 sw=2 et
