@@ -15,6 +15,21 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
+  {"r4mmer/markdown-preview.nvim", -- "iamcco/markdown-preview.nvim",
+  ft = "markdown",
+  -- build = "cd app && yarn install", -- after removing Joplin one day
+  build = "cd app && npm install",
+  init = function() vim.g.mkdp_filetypes = { "markdown" } end,
+},
+  --Neorg
+  {
+    "nvim-neorg/neorg",
+    build = ":Neorg sync-parsers",
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
+
+  -- integrated terminal
+  {'akinsho/toggleterm.nvim', version = "*"},
   -- Neogen for documenting
 { 
     "danymat/neogen", 
