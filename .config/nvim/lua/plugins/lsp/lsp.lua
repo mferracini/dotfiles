@@ -1,3 +1,6 @@
+-- configure venom to handle python venvs. It has to be before setip LSP according to scroll_docs
+require('venom').setup()
+
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
@@ -51,11 +54,11 @@ end
 --  define the property 'filetypes' to the map in question.
 local servers = {
   -- clangd = {},
-  -- gopls = {},
-   pyright = {},
+  gopls = {},
+  pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
-   html = {},
+  html = {},
 
   lua_ls = {
     Lua = {

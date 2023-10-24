@@ -8,7 +8,7 @@ null_ls.setup({
         formatting.black,
         formatting.sqlfmt,
         diagnostics.ruff,
-        diagnostics.mypy,
-        diagnostics.flake8,
+        -- diagnostics.mypy,
+        -- diagnostics.flake8,
    },
 })

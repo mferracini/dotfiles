@@ -21,13 +21,6 @@ require('lazy').setup({
   build = "cd app && npm install",
   init = function() vim.g.mkdp_filetypes = { "markdown" } end,
 },
-  --Neorg
-  {
-    "nvim-neorg/neorg",
-    build = ":Neorg sync-parsers",
-    dependencies = { "nvim-lua/plenary.nvim" },
-  },
-
   -- integrated terminal
   {'akinsho/toggleterm.nvim', version = "*"},
   -- Neogen for documenting
@@ -66,13 +59,20 @@ require('lazy').setup({
       -- Automatically install LSPs to stdpath for neovim
       { 'williamboman/mason.nvim', config = true },
       'williamboman/mason-lspconfig.nvim',
-
+    { 'folke/neoconf.nvim', cmd = 'Neoconf', config = true },
+    'rafi/neoconf-venom.nvim',
       { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
     },
   },
+
+  -- handle python venvs
+{
+  'rafi/neoconf-venom.nvim',
+  dependencies = { 'nvim-lua/plenary.nvim', 'folke/neoconf.nvim' },
+},
   -- formatters and linters
   {'jose-elias-alvarez/null-ls.nvim',},
   {
@@ -178,8 +178,10 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
-
+ {'Vigemus/iron.nvim'},
   -- { import = 'plugins' },
+  -- better buffer handling
+  {'ojroques/nvim-bufdel'},
 }, {})
 
 
