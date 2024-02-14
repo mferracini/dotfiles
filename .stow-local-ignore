@@ -24,3 +24,5 @@ _darcs
 \.install_applications.*
 \.bashrc
 \applications
+\scripts
+\clean_install

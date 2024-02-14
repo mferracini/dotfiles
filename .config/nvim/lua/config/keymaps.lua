@@ -19,27 +19,31 @@ vim.g.maplocalleader = ","
 
 -- Normal --
 -- Better window navigation using only ctrl+hjkl
-keymap("n", "<C-h>", "<C-w>h", opts)
-keymap("n", "<C-j>", "<C-w>j", opts)
-keymap("n", "<C-k>", "<C-w>k", opts)
-keymap("n", "<C-l>", "<C-w>l", opts)
-
-
+keymap("n", "<S-h>", "<C-w>h", opts)
+keymap("n", "<S-j>", "<C-w>j", opts)
+keymap("n", "<S-k>", "<C-w>k", opts)
+keymap("n", "<S-l>", "<C-w>l", opts)
 -- Resize with arrows using ctrl+arrows
 keymap("n", "<C-Up>", ":resize -2<CR>", opts)
 keymap("n", "<C-Down>", ":resize +2<CR>", opts)
 keymap("n", "<C-Left>", ":vertical resize +2<CR>", opts)
 keymap("n", "<C-Right>", ":vertical resize -2<CR>", opts)
 
--- Navigate buffers using shift+lh
-keymap("n", "<S-l>", ":bnext<CR>", opts)
-keymap("n", "<S-h>", ":bprevious<CR>", opts)
+-- Navigate buffers using Tab and Shift-Tab
+keymap("n", "<Tab>", ":bnext<CR>", opts)
+keymap("n", "<S-Tab>", ":bprevious<CR>", opts)
 
 -- Move text up and down alt+jk
 keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
 keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
 
+-- splits
+keymap("n", "<leader>h", ":horizontal split<CR>", opts)
+keymap("n", "<leader>v", ":vs<CR>", opts)
 
+-- save/quit
+keymap("n","<leader>w", ":w<CR>", opts)
+keymap("n","<leader>q", ":q<CR>", opts)
 -- Visual --
 -- Stay in indent mode
 keymap("v", "<", "<gv", opts)

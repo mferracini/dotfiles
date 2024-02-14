@@ -4,6 +4,7 @@
 alias brow='arch --x86_64 /usr/local/Homebrew/bin/brew'
 alias intel='arch --x86_64 zsh'
 alias arm='arch --arm64 zsh'
+alias ranker-cli='python cli/src/cli.py'
 #CFLAGS="-I$(brew86 --prefix openssl)/include" \
 #LDFLAGS="-L$(brew86 --prefix openssl)/lib" \
 #pyenv conf 

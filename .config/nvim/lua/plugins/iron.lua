@@ -36,7 +36,7 @@ iron.setup {
     },
     -- How the repl window will be displayed
     -- See below for more information
-    repl_open_cmd = view.split.vertical.botright(.40),
+    repl_open_cmd = view.split.horizontal.botright(.40),
     -- repl_open_cmd = require('iron.view').bottom(40),
   },
   -- Iron doesn't set keymaps by default anymore.

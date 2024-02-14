@@ -30,6 +30,7 @@ require('lazy').setup({
     config = true,
      version = "*",
 },
+  {'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons'},
 
 {
     "nvim-neo-tree/neo-tree.nvim",
@@ -169,6 +170,16 @@ require('lazy').setup({
       return vim.fn.executable 'make' == 1
     end,
   },
+  -- copilot tools
+  {
+    'github/copilot.vim',
+  },
+  {
+    "sourcegraph/sg.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    -- If you have a recent version of lazy.nvim, you don't need to add this!
+    build = "nvim -l build/init.lua",
+  },
 
   {
     -- Highlight, edit, and navigate code
@@ -182,6 +193,7 @@ require('lazy').setup({
   -- { import = 'plugins' },
   -- better buffer handling
   {'ojroques/nvim-bufdel'},
+  {'jamestthompson3/nvim-remote-containers'},
 }, {})
 
 
