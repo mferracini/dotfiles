@@ -1,0 +1,21 @@
+live_config_reload = true
+import = [
+    "~/.config/alacritty/themes/themes/catppuccin_mocha.toml"
+]
+[font]
+size = 14
+normal.family =  "MesloLGL Nerd Font Mono"
+bold.family = "MesloLGL Nerd Font Mono"
+italic.family = "MesloLGL Nerd Font Mono"
+bold_italic.family = "MesloLGL Nerd Font Mono"
+
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+padding = {x = 2, y = 2}
+decorations = "none"
+# opacity = 0.8
+
+

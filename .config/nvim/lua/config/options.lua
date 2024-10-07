@@ -1,7 +1,7 @@
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
-
+vim.o.tabstop = 2
 -- Set highlight on search
 vim.o.hlsearch = false
 
@@ -42,3 +42,8 @@ vim.o.termguicolors = true
 vim.opt.swapfile = false
 
 vim.o.relativenumber = true
+
+-- Spell check
+vim.opt.spelllang = 'en_us'
+vim.opt.spell = true
+

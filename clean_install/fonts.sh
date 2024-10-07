@@ -1,2 +1,0 @@
-## download and set nerdfonts
-

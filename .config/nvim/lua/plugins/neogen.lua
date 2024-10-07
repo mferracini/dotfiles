@@ -1,8 +1,7 @@
 local opts = { noremap = true, silent = true }
-vim.api.nvim_set_keymap("n", "<Leader>nf", ":lua require('neogen').generate()<CR>", opts)
+vim.api.nvim_set_keymap("n", "<Leader>nf", ":lua require('neogen').generate({type = 'func' })<CR>", opts)
+vim.api.nvim_set_keymap("n", "<Leader>nc", ":lua require('neogen').generate({ type = 'class' })<CR>", opts)
 
-
-local cmp = require('cmp')
 local neogen = require('neogen')
 
 
@@ -16,31 +15,9 @@ neogen.setup({
     },
     python = {
       template = {annotation_convention = "reST"}
+      -- template = {annotation_convention = "numpydoc"}
     },
   }
 })
 
-cmp.setup {
-    mapping = {
-        ["<tab>"] = cmp.mapping(function(fallback)
-            if neogen.jumpable() then
-                neogen.jump_next()
-            else
-                fallback()
-            end
-        end, {
-            "i",
-            "s",
-        }),
-        ["<S-tab>"] = cmp.mapping(function(fallback)
-            if neogen.jumpable(true) then
-                neogen.jump_prev()
-            else
-                fallback()
-            end
-        end, {
-            "i",
-            "s",
-        }),
-    },
-}
+

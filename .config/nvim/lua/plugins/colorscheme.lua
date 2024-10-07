@@ -30,5 +30,10 @@ local catppuccin_opts = {
       },
   }
 require("catppuccin").setup(catppuccin_opts)
-require("tokyonight").setup({ style = "moon" })
+require("tokyonight").setup({
+  style = "moon",
+  transparent = true,
+})
 
+
+vim.cmd.colorscheme "tokyonight"
