@@ -12,8 +12,10 @@ alias gfa="git fetch --all"
 
 
 # open neovim directly in some directory
-alias dotfiles='nvim ~/dotfiles'
+alias dotfiles='vv ~/dotfiles'
 alias sb='vv ~/workspace/second-brain'
+alias wn='vv ~/workspace/work/notes'
+alias pers='cd ~/workspace/pers'
 
 alias lg='lazygit'
 # re-source .zshrc

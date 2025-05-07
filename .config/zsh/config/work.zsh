@@ -14,6 +14,7 @@ update-fury-token()
    fury get-token; export TIGER_TOKEN=$(fury get-token | tail -1)
 }
 
-alias meli='cd ~/workspace/PARA/projects/meli'
+alias work='cd ~/workspace/work'
 
+alias fow= 'fury open-web'
 
