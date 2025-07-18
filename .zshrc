@@ -16,3 +16,5 @@ export SKP_SDK_PATH="/usr/local/SketchUpSDK"
 export DYLD_LIBRARY_PATH="$SKP_SDK_PATH/bin:$DYLD_LIBRARY_PATH"
 export PATH="$SKP_SDK_PATH/bin:$PATH"
 
+source $HOME/.config/.exports/export.zsh
+
