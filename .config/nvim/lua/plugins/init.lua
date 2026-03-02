@@ -1,7 +1,0 @@
-require("plugins.lsp")
-require("plugins.neogen")
-require("plugins.telescope")
-require("plugins.treesitter")
-require("plugins.terminal")
-require("plugins.neotree")
-require("plugins.buffer")
