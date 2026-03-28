@@ -56,17 +56,38 @@ if [[ "$choice" == *"config"* || "$choice" == *"notes"* ]]; then
     # Skip fzf and use the category path directly
     dir="$search_path"
 else
-    subDir=$(fd . "$search_path" --min-depth 1 --max-depth 1 --type d --color never | fzf \
-        --header " 📂 SELECT PROJECT: $choice " \
-        --prompt " Project: " \
-        --layout=reverse --height=40% \
-        --border=rounded) 
-    # Run fd search for projects within the category
-    dir=$(fd . "$subDir" --min-depth 1 --max-depth 1 --type d --color never | fzf \
-        --header " 📂 SELECT PROJECT: $choice " \
-        --prompt " Project: " \
-        --layout=reverse --height=40% \
-        --border=rounded)
+    # Arbitrary-depth directory browser
+    # Enter = drill into selected directory | Ctrl-S = select current directory
+    current_dir="$search_path"
+    while true; do
+        subdirs=$(fd . "$current_dir" --min-depth 1 --max-depth 1 --type d --color never)
+
+        # Leaf directory — auto-select
+        if [[ -z "$subdirs" ]]; then
+            dir="$current_dir"
+            break
+        fi
+
+        result=$(echo "$subdirs" | fzf \
+            --expect=ctrl-s \
+            --header " 📂 BROWSE: $(basename "$current_dir")  |  enter=open · ctrl-s=select here" \
+            --prompt " Dir: " \
+            --layout=reverse --height=40% \
+            --border=rounded)
+
+        # Escape / Ctrl-C
+        [[ -z "$result" ]] && exit 0
+
+        key=$(head -1 <<< "$result")
+        selection=$(tail -1 <<< "$result")
+
+        if [[ "$key" == "ctrl-s" ]]; then
+            dir="$current_dir"
+            break
+        else
+            current_dir="$selection"
+        fi
+    done
 fi
 
 [[ -z "$dir" ]] && exit 0

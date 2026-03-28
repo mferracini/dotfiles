@@ -22,4 +22,5 @@ alias lg='lazygit'
 alias reload='source ~/.zshrc'
 alias ts="source ~/.local/bin/tm-switch.sh"
 alias tn="source ~/.local/bin/tm-new-session.sh"
+alias gwtc="source ~/.local/bin/gwtc.sh"
 
